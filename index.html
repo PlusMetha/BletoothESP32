@@ -32,9 +32,17 @@
                     const value = event.target.value;
                     // Decode the value
                     const decodedValue = new TextDecoder().decode(value);
-                    // Display the value on the web page
-                    document.getElementById('output').innerText = `Received value: ${decodedValue}`;
+                    // Get the current timestamp
+                    const timestamp = new Date().toLocaleTimeString();
+                    // Construct the message with timestamp
+                    const message = `[${timestamp}] Received value: ${decodedValue}`;
+                    // Append the message to the output div
+                    const outputDiv = document.getElementById('output');
+                    outputDiv.innerText = message + '\n' + outputDiv.innerText;
                 });
+
+                // Display connection message
+                document.getElementById('output').innerText = 'Connected to Bluetooth device';
 
             } catch (error) {
                 console.error('Bluetooth error:', error);
