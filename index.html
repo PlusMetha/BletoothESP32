@@ -12,17 +12,17 @@
             try {
                 const device = await navigator.bluetooth.requestDevice({
                     acceptAllDevices: true, // This will search for all Bluetooth devices
-                    optionalServices: ['your_service_uuid'] // Replace 'your_service_uuid' with the UUID of the service you want to connect to
+                    optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b'] // Replace 'your_service_uuid' with the UUID of the service you want to connect to
                 });
 
                 // Connect to the selected device
                 const server = await device.gatt.connect();
 
                 // Access the desired service
-                const service = await server.getPrimaryService('your_service_uuid');
+                const service = await server.getPrimaryService('4fafc201-1fb5-459e-8fcc-c5c9c331914b');
 
                 // Access the characteristic
-                const characteristic = await service.getCharacteristic('your_characteristic_uuid');
+                const characteristic = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a8');
 
                 // Start notifications for the characteristic
                 await characteristic.startNotifications();
