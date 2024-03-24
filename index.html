@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Bluetooth Example</title>
+</head>
+<body>
+    <button onclick="connectToDevice()">Connect to Bluetooth Device</button>
+    <div id="output"></div>
+
+    <script>
+        async function connectToDevice() {
+            try {
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true, // This will search for all Bluetooth devices
+                    optionalServices: ['your_service_uuid'] // Replace 'your_service_uuid' with the UUID of the service you want to connect to
+                });
+
+                // Connect to the selected device
+                const server = await device.gatt.connect();
+
+                // Access the desired service
+                const service = await server.getPrimaryService('your_service_uuid');
+
+                // Access the characteristic
+                const characteristic = await service.getCharacteristic('your_characteristic_uuid');
+
+                // Start notifications for the characteristic
+                await characteristic.startNotifications();
+
+                // Handle notifications
+                characteristic.addEventListener('characteristicvaluechanged', (event) => {
+                    const value = event.target.value;
+                    // Decode and display the value
+                    document.getElementById('output').innerText = `Received value: ${new TextDecoder().decode(value)}`;
+                });
+
+            } catch (error) {
+                console.error('Bluetooth error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
