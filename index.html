@@ -45,6 +45,8 @@
                 document.getElementById('output').innerText = 'Connected to Bluetooth device';
 
             } catch (error) {
+                // Display error message
+                document.getElementById('output').innerText = 'Error: Failed to connect to Bluetooth device';
                 console.error('Bluetooth error:', error);
             }
         }
